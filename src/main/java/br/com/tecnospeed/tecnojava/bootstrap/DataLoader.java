@@ -1,18 +1,27 @@
 package br.com.tecnospeed.tecnojava.bootstrap;
 
+import java.util.Date;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import br.com.tecnospeed.tecnojava.models.Autor;
+import br.com.tecnospeed.tecnojava.models.Livro;
 import br.com.tecnospeed.tecnojava.repositories.AutorRepository;
+import br.com.tecnospeed.tecnojava.repositories.LivroRepository;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
-	private AutorRepository autorRepository;
+	private AutorRepository autorRepo;
+	private LivroRepository livroRepo;
 
-	public DataLoader(AutorRepository autorRepository) {
-		this.autorRepository = autorRepository;
+	public DataLoader(
+		AutorRepository autorRepo,
+		LivroRepository livroRepo
+	) {
+		this.autorRepo = autorRepo;
+		this.livroRepo = livroRepo;
 	}
 	
 	@Override
@@ -22,16 +31,18 @@ public class DataLoader implements CommandLineRunner {
 
 	private void inserirDados() {
 		Autor autor = new Autor();
-		autor.setNome("Vinicius Rufine");
-		autorRepository.save(autor);
-
-		Autor autor2 = new Autor();
-		autor2.setNome("Galvão Bueno");
-		autorRepository.save(autor2);
+		autor.setNome("Sir Arthur Conan Doyle");
+		autor.setNacionalidade("Brasileiro");
+		autor.setNascimento(new Date());
+		autorRepo.save(autor);
 		
-		Autor autor3 = new Autor();
-		autor3.setNome("Matias Josias");
-		autorRepository.save(autor3);
+		Livro livro = new Livro();
+		livro.setAutor(autor);
+		livro.setEditora("Globo");
+		livro.setNome("As aventuras de Sherlock Holmes");
+		livro.setPublicacao(new Date());
+		livro.setResumo("lorem ipsum...");
+		livroRepo.save(livro);
 	}
 	
 }

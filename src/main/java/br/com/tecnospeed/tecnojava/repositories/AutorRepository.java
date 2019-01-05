@@ -7,4 +7,5 @@ import br.com.tecnospeed.tecnojava.models.Autor;
 
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
+	
 }
